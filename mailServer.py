@@ -6,7 +6,6 @@ import argparse
 import json
 import mailboxManager
 
-in_temp2 = 10
 
 app = Flask('RaspberryPi Mailbox Server')
 
@@ -59,6 +58,13 @@ def post_mail_callback():
 
     # The object returned will be sent back as an HTTP message to the requester
     return json.dumps(response)
+
+def incomming_temp():
+    in_temp2 = 10
+    return in_temp2
+
+in_temp3 = incomming_temp()
+
 
 if __name__ == '__main__':
     # Set up argparse, a Python module for handling command-line arguments
