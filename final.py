@@ -155,7 +155,7 @@ if __name__ == '__main__':
     
         if button_status:
 
-            print(mailServer.indoor_temp)
+            print(mailServer.incomming_temp)
                           
             grovepi.digitalWrite(buzzer_pin, 1)
             time.sleep(.1)
