@@ -48,7 +48,7 @@ def post_mail_callback():
 
     # Get the payload containing the sender, subject and body parameters
     payload = request.get_json()
-    in_temp = payload["temp"]
+    in_temp = 10
     print(in_temp)
     print(payload)
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     mailbox_password = args.p   # password
     mailbox_manager = mailboxManager.mailboxManager()
 
-    app.run(debug=False, host='0.0.0.0', port=4250)
+    app.run(debug=False, host='0.0.0.0', port=4251)
 
 
 

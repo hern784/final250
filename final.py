@@ -15,7 +15,7 @@ import json
 import paho.mqtt.client as mqtt
 
 # import mailServer to use incomming temp
-import mailServer
+from mailServer import *
 
 
 #i/o being used
@@ -155,7 +155,7 @@ if __name__ == '__main__':
     
         if button_status:
 
-            print(mailServer.incomming_temp)
+            print(in_temp)
                           
             grovepi.digitalWrite(buzzer_pin, 1)
             time.sleep(.1)
