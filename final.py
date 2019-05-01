@@ -128,8 +128,14 @@ if __name__ == '__main__':
         # buzzer on buttom press and mode change
         button_status = grovepi.digitalRead(button)
         lcd.setRGB(0,122,0)
+
+        i = 0
+        time.sleep(1)
+        i = i + 1
     
         if button_status:
+
+            i = 0
                           
             grovepi.digitalWrite(buzzer_pin, 1)
             time.sleep(.1)
