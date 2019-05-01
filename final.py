@@ -132,13 +132,16 @@ if __name__ == '__main__':
         time.clock()
         start = 0
 
-        if (time.clock() - start) == 0:
+        if (time.clock() - start) >= 5:
             lcd.setRGB(0,0,0)
+            print (time.clock())
+            print (start)
     
         if button_status:
 
             start = time.clock()
-            lcd.setRGB(0,122,0)              
+            lcd.setRGB(0,122,0)     
+            print (start)         
             grovepi.digitalWrite(buzzer_pin, 1)
             time.sleep(.1)
             grovepi.digitalWrite(buzzer_pin, 0)
