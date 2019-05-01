@@ -45,7 +45,7 @@ class mailboxClient():
         # Send an HTTP POST message and block until a response is given.
         # Note: requests is NOT the same thing as the request from the Flask
         # library.
-        response = requests.post("http://{}/send-mail".format(address),
+        response = requests.get("http://{}/send-mail".format(address),
                                  headers=headers,
                                  data=json.dumps(payload))
 
