@@ -119,6 +119,7 @@ def lcd_sleep():
         i = i + 1
         time.sleep(1)
         if button_status:
+            print ("test")
             i = 0
     else:
         lcd.setRGB(0,0,0)
