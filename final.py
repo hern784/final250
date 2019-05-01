@@ -14,6 +14,9 @@ import json
 # mqtt
 import paho.mqtt.client as mqtt
 
+# import mailServer to use incomming temp
+import mailServer
+
 
 #i/o being used
 sensor = 7
@@ -151,6 +154,8 @@ if __name__ == '__main__':
 
     
         if button_status:
+
+            print(mailServer.indoor_temp)
                           
             grovepi.digitalWrite(buzzer_pin, 1)
             time.sleep(.1)
@@ -208,7 +213,7 @@ if __name__ == '__main__':
 
         #default
         if (mode == 1):
-            print ("\nmode = Default")
+            print ("\nmode = 1 - Default")
 
             print("Temp: {:>3}F  {:>4}".format(indoor_temp, hvac))
             print("Desired: {:>3}F".format(desired_temp))
@@ -216,13 +221,13 @@ if __name__ == '__main__':
         #outdoor
         if (mode == 2):
 
-            print("\nmode = Outdoor")
+            print("\nmode = 2 - Outdoor")
             print("Temp: {:>3}F {:>4}".format(indoor_temp, hvac))
             print("Outdoor: {:>3}F".format(outdoor_temp))
             lcd.setText_norefresh("Temp: {:>3}F {:>4}\nOutdoor: {:>3.2f}F".format(indoor_temp, hvac, outdoor_temp))
         #edit
         if (mode == 0):
-            print("\nmode = Edit")
+            print("\nmode = 0 - Edit")
 
             # get rotary angle set desired temp
             angle = get_rotary_angle()
