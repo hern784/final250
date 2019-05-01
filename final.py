@@ -122,15 +122,15 @@ if __name__ == '__main__':
     client.on_connect = on_connect
     client.connect(host="eclipse.usc.edu", port=11000, keepalive=60)
     client.loop_start()
+
+    time.clock()
+    start = 0
     
     while True:
 
         # buzzer on buttom press and mode change
         button_status = grovepi.digitalRead(button)
         lcd.setRGB(0,122,0)
-
-        time.clock()
-        start = 0
 
         if (time.clock() - start) >= 5:
             lcd.setRGB(0,0,0)
