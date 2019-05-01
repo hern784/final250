@@ -6,6 +6,8 @@ import argparse
 import json
 import mailboxManager
 
+in_temp2 = 10
+
 app = Flask('RaspberryPi Mailbox Server')
 
 @app.route('/mailbox/search', methods=['GET'])
@@ -48,7 +50,7 @@ def post_mail_callback():
 
     # Get the payload containing the sender, subject and body parameters
     payload = request.get_json()
-    in_temp = 10
+    in_temp = payload["temp"]
     print(in_temp)
     print(payload)
 
