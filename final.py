@@ -114,7 +114,8 @@ def get_weather(zip_code):
 
 def lcd_sleep():
     i = 0
-    if !grovepi.digitalRead(button) && i < 5:
+    button_status = grovepi.digitalRead(button)
+    if !button_status && i < 5:
         i = i + 1
         time.sleep(1)
     else:
