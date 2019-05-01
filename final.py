@@ -22,6 +22,7 @@ button = 4
 PORT_ROTARY = 1    #
 grovepi.pinMode(buzzer_pin, "OUTPUT")
 grovepi.pinMode(button, "INPUT")
+lcd.setRGB(0,122,0)
 
 #variables
 desired_temp_min = 60
@@ -111,6 +112,14 @@ def get_weather(zip_code):
         print(response.text)
         return 0.0, 0.0
 
+def lcd_sleep():
+    i = 0
+    if !grovepi.digitalRead(button) && i < 5:
+        i = i + 1
+        time.sleep(1)
+    else:
+        lcd.setRGB(0,0,0)
+
 
 ##########################  begin  #######################################
 
@@ -122,26 +131,16 @@ if __name__ == '__main__':
     client.on_connect = on_connect
     client.connect(host="eclipse.usc.edu", port=11000, keepalive=60)
     client.loop_start()
-
-    time.clock()
-    start = 0
     
     while True:
 
         # buzzer on buttom press and mode change
         button_status = grovepi.digitalRead(button)
-        lcd.setRGB(0,122,0)
 
-        if (time.clock() - start) >= 5:
-            lcd.setRGB(0,0,0)
-            print (time.clock())
-            print (start)
+        lcd_sleep()
     
         if button_status:
-
-            start = time.clock()
-            lcd.setRGB(0,122,0)     
-            print (start)         
+                          
             grovepi.digitalWrite(buzzer_pin, 1)
             time.sleep(.1)
             grovepi.digitalWrite(buzzer_pin, 0)
