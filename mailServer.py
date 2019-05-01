@@ -5,6 +5,7 @@ from flask import request
 import argparse
 import json
 import mailboxManager
+import math
 
 app = Flask('RaspberryPi Mailbox Server')
 
@@ -48,12 +49,17 @@ def post_mail_callback():
 
     # Get the payload containing the sender, subject and body parameters
     payload = request.get_json()
-    in_temp = payload["temp"]
-    print(in_temp)
+    in_temp = int(payload["temp"])
+    print("Incomming encrypted temp = " + str(in_temp))
+    in_temp2 = math.sqrt(in_temp)
+    print("Incomming decrypted temp = " + str(in_temp2))
     print(payload)
 
-    mailbox_manager.add_mail(payload)
-    response = {'Response': 'Mail sent'}
+    if (in_temp2>60) and (in_temp2 <100):
+        mailbox_manager.add_mail(payload)
+        response = {'Response': 'Mail sent'}
+    else:
+        response = {'Response': 'Invalid temp sent'}
 
     # The object returned will be sent back as an HTTP message to the requester
     return json.dumps(response)
@@ -72,7 +78,7 @@ if __name__ == '__main__':
     mailbox_password = args.p   # password
     mailbox_manager = mailboxManager.mailboxManager()
 
-    app.run(debug=False, host='0.0.0.0', port=5554)
+    app.run(debug=False, host='0.0.0.0', port=5570)
 
 
 

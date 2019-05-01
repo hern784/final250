@@ -28,7 +28,12 @@ def main():
             address = address if address != '' else None
 
             temp = input('Desired Temp: ')
-            temp = temp if temp != '' else None
+            temp = temp if temp != '' and temp.isdigit() == True else input("Not Valid!\nDesired Temp:")
+            print("Temp to be sent = " + str(temp))
+
+            temp = int(temp) * int(temp)
+
+            print("Encrypted temp to be sent = " + str(temp))
 
             try:
                 mailbox_client.send_mail(address, temp)
