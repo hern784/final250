@@ -14,8 +14,7 @@ import json
 # mqtt
 import paho.mqtt.client as mqtt
 
-# import mailServer to use incomming temp
-from mailServer import d_temp
+
 
 
 #i/o being used
