@@ -51,12 +51,15 @@ def post_mail_callback():
     print("Incomming decrypted temp = " + str(desired_temp))
     print(payload)
 
+
+    response = {'Response': 'Mail sent'}
+    """
     if (desired_temp>60) and (desired_temp <100):
         mailbox_manager.add_mail(payload)
         response = {'Response': 'Mail sent'}
     else:
         response = {'Response': 'Invalid temp sent'}
-
+    """
     # The object returned will be sent back as an HTTP message to the requester
     return json.dumps(response)
 
