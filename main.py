@@ -319,11 +319,13 @@ if __name__ == '__main__':
 
     mailbox_password = args.p   # password
     mailbox_manager = mailboxManager.mailboxManager()
-
+    main()
     # threading
     startup()
 
     app.run(debug=True, host='rpi-jaeishin', port=6002)
+
+
 
 
 
