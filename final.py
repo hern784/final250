@@ -39,10 +39,10 @@ def post_mail_callback():
     # Print incomming temp
     print("Incomming encrypted temp = " + str(in_temp))
     desired_temp = math.sqrt(in_temp)
-    print("Incomming decrypted temp = " + str(in_temp2))
+    print("Incomming decrypted temp = " + str(desired_temp))
     print(payload)
 
-    if (in_temp2>60) and (in_temp2 <100):
+    if (desired_temp>60) and (desired_temp <100):
         mailbox_manager.add_mail(payload)
         response = {'Response': 'Mail sent'}
     else:
