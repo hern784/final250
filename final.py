@@ -44,7 +44,7 @@ def post_mail_callback():
 
     if (in_temp2>60) and (in_temp2 <100):
         mailbox_manager.add_mail(payload)
-        response = {'Response': 'Mail sent', 'Recieved': in_temp2}
+        response = {'Response': 'Mail sent'}
     else:
         response = {'Response': 'Invalid temp sent'}
 
@@ -199,7 +199,7 @@ if __name__ == '__main__':
     mailbox_password = args.p   # password
     mailbox_manager = mailboxManager.mailboxManager()
 
-    app.run(debug=False, host='rpi-jaeishin', port=5597)
+    app.run(debug=False, host='rpi-jaeishin', port=5598)
 
 
     while True:
