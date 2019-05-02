@@ -64,7 +64,7 @@ def get_rotary_angle():
     voltage = round((float)(sensor_value) * adc_ref / 1023, 2)
     # Calculate rotation in degrees (0 to 300)
     degrees = round((voltage * full_angle) / grove_vcc, 2)
-    return min(degrees, 300)
+    return degrees
 
 def rotary_temp():
     angle = grovepi.analogRead(potentiometer)
@@ -239,7 +239,9 @@ if __name__ == '__main__':
             print("\nmode = 0 - Edit")
 
             # get rotary angle set desired temp
-            desired_temp = rotary_temp()
+            angle = get_rotary_angle()
+            desired_temp = 60 + (angle/7.5)
+           
 
             print("Set Temp: {:>3}F".format(desired_temp)) 
             lcd.setText_norefresh("Set Temp:{:>3}F".format(desired_temp))
