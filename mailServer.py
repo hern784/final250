@@ -9,7 +9,7 @@ import math
 
 app = Flask('RaspberryPi Mailbox Server')
 
-in_temp2 = 0
+in_temp2 = 2
 
 
 @app.route('/send-mail', methods=['POST'])
