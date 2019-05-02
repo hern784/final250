@@ -78,7 +78,7 @@ if __name__ == '__main__':
     mailbox_password = args.p   # password
     mailbox_manager = mailboxManager.mailboxManager()
 
-    app.run(debug=False, host='192.168.1.199', port=5571)
+    app.run(debug=False, host='192.168.1.199', port=5572)
 
 
 
