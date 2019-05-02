@@ -59,7 +59,7 @@ def get_rotary_angle():
     grove_vcc = 5
     full_angle = 300
     # Read sensor value from potentiometer
-    sensor_value = grovepi.analogRead(PORT_ROTARY)
+    sensor_value = grovepi.analogRead(potentiometer)
     # Calculate voltage
     voltage = round((float)(sensor_value) * adc_ref / 1023, 2)
     # Calculate rotation in degrees (0 to 300)
