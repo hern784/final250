@@ -49,7 +49,7 @@ def post_mail_callback():
         response = {'Response': 'Invalid temp sent'}
 
     # The object returned will be sent back as an HTTP message to the requester
-    return desired_temp
+    return json.dumps(response)
 
 
 
@@ -199,7 +199,7 @@ if __name__ == '__main__':
     mailbox_password = args.p   # password
     mailbox_manager = mailboxManager.mailboxManager()
 
-    app.run(debug=False, host='rpi-jaeishin', port=5599)
+    app.run(debug=False, host='rpi-jaeishin', port=6000)
 
 
     while True:
