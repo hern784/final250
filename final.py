@@ -21,7 +21,7 @@ import paho.mqtt.client as mqtt
 sensor = 7
 buzzer_pin = 2
 button = 4
-PORT_ROTARY = 1    #
+PORT_ROTARY = 0    #
 grovepi.pinMode(buzzer_pin, "OUTPUT")
 grovepi.pinMode(button, "INPUT")
 lcd.setRGB(0,122,0)
