@@ -66,9 +66,6 @@ def get_rotary_angle():
     degrees = round((voltage * full_angle) / grove_vcc, 2)
     return min(degrees, 300)
 
-def ponten_angle():
-
-
 def rotary_temp():
     angle = grovepi.analogRead(potentiometer)
     r_temp = angle/5
