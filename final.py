@@ -70,7 +70,7 @@ indoor_temp = 0
 outdoor_temp = 0
 temp = 0
 desired_temp = 70
-mode = 0
+mode = 1
 hvac = 0
 wind_on = "rpi-jaeishin/HVAC", "Entering wind mode: rpi-jaeishin"
 wind_off = "rpi-jaeishin/HVAC", "Exiting wind mode: rpi-jaeishin"
@@ -199,7 +199,7 @@ if __name__ == '__main__':
     mailbox_password = args.p   # password
     mailbox_manager = mailboxManager.mailboxManager()
 
-    app.run(debug=False, host='rpi-jaeishin', port=6000)
+    app.run(debug=False, host='rpi-jaeishin', port=6001)
 
 
     while True:
