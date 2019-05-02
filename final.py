@@ -14,7 +14,41 @@ import json
 # mqtt
 import paho.mqtt.client as mqtt
 
-from mailServer import *
+
+# HTTP imports from mail Server
+
+from flask import Flask
+from flask import jsonify
+from flask import request
+
+import argparse
+import json
+import mailboxManager
+
+
+@app.route('/send-mail', methods=['POST'])
+def post_mail_callback():
+
+    global desired_temp
+
+    payload = request.get_json()
+    in_temp = int(payload["temp"])
+
+    # Print incomming temp
+    print("Incomming encrypted temp = " + str(in_temp))
+    desired_temp = math.sqrt(in_temp)
+    print("Incomming decrypted temp = " + str(in_temp2))
+    print(payload)
+
+    if (in_temp2>60) and (in_temp2 <100):
+        mailbox_manager.add_mail(payload)
+        response = {'Response': 'Mail sent', 'Recieved': in_temp2}
+    else:
+        response = {'Response': 'Invalid temp sent'}
+
+    # The object returned will be sent back as an HTTP message to the requester
+    return desired_temp
+
 
 
 #i/o being used
@@ -148,13 +182,25 @@ if __name__ == '__main__':
     client.connect(host="eclipse.usc.edu", port=11000, keepalive=60)
     client.loop_start()
     i = 0
+
+    # HTTP from mailServer
+
+    # Set up argparse, a Python module for handling command-line arguments
+    parser = argparse.ArgumentParser(prog='mailServer',
+            description='Script to start up mail server')
+
+    parser.add_argument('-p', metavar='password', required=True,
+            help='Required password to access server')
+
+    args = parser.parse_args()
+
+    mailbox_password = args.p   # password
+    mailbox_manager = mailboxManager.mailboxManager()
+
+    app.run(debug=False, host='rpi-jaeishin', port=5595)
+
+
     while True:
-
-
-        in_des_temp = post_mail_callback()
-        print(in_des_temp)
-
-        #if http update desired_temp = in_temp2
 
         # buzzer on buttom press and mode change
         button_status = grovepi.digitalRead(button)
