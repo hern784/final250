@@ -9,8 +9,11 @@ import math
 
 app = Flask('RaspberryPi Mailbox Server')
 
+
 @app.route('/send-mail', methods=['POST'])
 def post_mail_callback():
+
+    global in_temp2
 
     payload = request.get_json()
     in_temp = int(payload["temp"])
@@ -30,8 +33,10 @@ def post_mail_callback():
     # The object returned will be sent back as an HTTP message to the requester
     return json.dumps(response)
 
-
 if __name__ == '__main__':
+
+    in_temp2 = 0
+
     # Set up argparse, a Python module for handling command-line arguments
     parser = argparse.ArgumentParser(prog='mailServer',
             description='Script to start up mail server')
@@ -44,7 +49,7 @@ if __name__ == '__main__':
     mailbox_password = args.p   # password
     mailbox_manager = mailboxManager.mailboxManager()
 
-    app.run(debug=False, host='0.0.0.0', port=5580)
+    app.run(debug=False, host='0.0.0.0', port=5586)
 
 
 
