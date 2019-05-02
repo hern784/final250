@@ -22,7 +22,7 @@ from flask import request
 import argparse
 import json
 import mailboxManager
-
+app = Flask('RaspberryPi Mailbox Server')
 
 
 
@@ -177,7 +177,7 @@ if __name__ == '__main__':
 
 
     while True:
-        app = Flask('RaspberryPi Mailbox Server')
+        
 
 
         @app.route('/send-mail', methods=['POST'])
