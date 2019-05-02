@@ -70,10 +70,10 @@ def rotary_temp():
     r_temp = angle/5
     rot_temp = 60 + r_temp
 
-    if rotary_temp > 100:
-        rotary_temp = 100
-    if rotary_temp < 60:
-        rotary_temp = 60
+    if rot_temp > 100:
+        rot_temp = 100
+    if rot_temp < 60:
+        rot_temp = 60
     return rot_temp
 
 
