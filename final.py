@@ -81,6 +81,7 @@ temp = 0
 desired_temp = 70
 mode = 1
 hvac = 0
+i = 0
 wind_on = "rpi-jaeishin/HVAC", "Entering wind mode: rpi-jaeishin"
 wind_off = "rpi-jaeishin/HVAC", "Exiting wind mode: rpi-jaeishin"
 
@@ -154,6 +155,7 @@ def main():
     global hvac 
     global wind_on
     global wind_off
+    global i
 
     while True:
 
