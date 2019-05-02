@@ -14,7 +14,7 @@ import json
 # mqtt
 import paho.mqtt.client as mqtt
 
-from mailServer import in_temp2
+from mailServer import *
 
 
 #i/o being used
@@ -150,7 +150,9 @@ if __name__ == '__main__':
     i = 0
     while True:
 
-        print(in_temp2)
+
+        in_des_temp = post_mail_callback()
+        print(in_des_temp)
 
         #if http update desired_temp = in_temp2
 
