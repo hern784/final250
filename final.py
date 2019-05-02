@@ -29,14 +29,12 @@ lcd.setRGB(0,122,0)
 #variables
 desired_temp_min = 60
 desired_temp_max = 100
-range_temp = desired_temp_max-desired_temp_min
 indoor_temp = 0
 outdoor_temp = 0
 temp = 0
 desired_temp = 0
 mode = 0
 hvac = 0
-flag = 0 # for mqtt messaging 1 for open window, 2 for close window
 wind_on = "rpi-jaeishin/HVAC", "Entering wind mode: rpi-jaeishin"
 wind_off = "rpi-jaeishin/HVAC", "Exiting wind mode: rpi-jaeishin"
 
@@ -66,6 +64,16 @@ def get_rotary_angle():
     # Calculate rotation in degrees (0 to 300)
     degrees = round((voltage * full_angle) / grove_vcc, 2)
     return min(degrees, 300)
+
+def rotary_temp():
+    angle = get_rotary_angle()
+    rotary_temp = angle/5
+    if rotary_temp > 100:
+        rotary_temp = 100
+    if rotary_temp < 60:
+        rotary_temp = 60
+    return rotary_temp
+
 
 def get_indoor_temp():
     # Connect the Grove Temperature Sensor to analog port A0
@@ -117,11 +125,10 @@ def get_weather(zip_code):
 def lcd_sleep():
     i = 0
     button_status = grovepi.digitalRead(button)
-    while i < 5:
+    while i < 4:
         i = i + 1
         time.sleep(1)
         if button_status:
-            print ("test")
             i = 0
     else:
         lcd.setRGB(0,0,0)
@@ -143,6 +150,8 @@ if __name__ == '__main__':
         # buzzer on buttom press and mode change
         button_status = grovepi.digitalRead(button)
 
+
+        # lcd sleep after 5 seonds
         time.sleep(1)
         i = i + 1
         if button_status:
@@ -227,9 +236,7 @@ if __name__ == '__main__':
             print("\nmode = 0 - Edit")
 
             # get rotary angle set desired temp
-            angle = get_rotary_angle()
-            interval = angle / 7.5
-            desired_temp = desired_temp_min + interval
+            desired_temp = rotary_temp()
 
             print("Set Temp: {:>3}F".format(desired_temp)) 
             lcd.setText_norefresh("Set Temp:{:>3}F".format(desired_temp))
