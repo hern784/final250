@@ -40,14 +40,7 @@ def search_mailbox_callback():
 
 @app.route('/send-mail', methods=['POST'])
 def post_mail_callback():
-    """
-    Summary: A callback for when POST is called on [host]:[port]/mailbox/send-mail
 
-    Returns:
-        string: A JSON-formatted string containing the response message
-    """
-
-    # Get the payload containing the sender, subject and body parameters
     payload = request.get_json()
     in_temp = int(payload["temp"])
     print("Incomming encrypted temp = " + str(in_temp))
