@@ -235,14 +235,14 @@ def main():
 
             print("Temp: {:>3}F  {:>4}".format(indoor_temp, hvac))
             print("Desired: {:>3}F".format(desired_temp))
-            lcd.setText_norefresh("Temp: {:>3}F {:>4}\nDesired: {:>3}F".format(indoor_temp, hvac, desired_temp))
+            lcd.setText("Temp: {:>3}F {:>4}\nDesired: {:>3}F".format(indoor_temp, hvac, desired_temp))
         #outdoor
         if (mode == 2):
 
             print("\nmode = 2 - Outdoor")
             print("Temp: {:>3}F {:>4}".format(indoor_temp, hvac))
             print("Outdoor: {:>3}F".format(outdoor_temp))
-            lcd.setText_norefresh("Temp: {:>3}F {:>4}\nOutdoor: {:>3.2f}F".format(indoor_temp, hvac, outdoor_temp))
+            lcd.setText("Temp: {:>3}F {:>4}\nOutdoor: {:>3.2f}F".format(indoor_temp, hvac, outdoor_temp))
         #edit
         if (mode == 0):
             print("\nmode = 0 - Edit")
@@ -253,7 +253,7 @@ def main():
            
 
             print("Set Temp: {:>3}F".format(desired_temp)) 
-            lcd.setText_norefresh("Set Temp:{:>3}F".format(desired_temp))
+            lcd.setText("Set Temp:{:>3}F".format(desired_temp))
 
 
 
