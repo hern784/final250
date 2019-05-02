@@ -25,6 +25,8 @@ import argparse
 import json
 import mailboxManager
 
+app = Flask('RaspberryPi Mailbox Server')
+
 
 @app.route('/send-mail', methods=['POST'])
 def post_mail_callback():
