@@ -324,7 +324,7 @@ if __name__ == '__main__':
     mailbox_manager = mailboxManager.mailboxManager()
     main()
     startup()
-    app.run(debug=True, host='rpi-jaeishin', port=6002)
+    app.run(debug=True, host='rpi-jaeishin', port=4250)
 
 
 
