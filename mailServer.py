@@ -9,6 +9,8 @@ import math
 
 app = Flask('RaspberryPi Mailbox Server')
 
+in_temp2 = 0
+
 
 @app.route('/send-mail', methods=['POST'])
 def post_mail_callback():
@@ -49,7 +51,7 @@ if __name__ == '__main__':
     mailbox_password = args.p   # password
     mailbox_manager = mailboxManager.mailboxManager()
 
-    app.run(debug=False, host='0.0.0.0', port=5592)
+    app.run(debug=False, host='0.0.0.0', port=5594)
 
 
 
