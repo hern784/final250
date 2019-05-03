@@ -153,7 +153,7 @@ def main():
     global i
     global flag
     f = os.path.isfile('/home/pi/final250/save.txt')
-    if exists:
+    if f:
         desired_temp = int(f.read())
         f.close()            
     else:
