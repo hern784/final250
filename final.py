@@ -135,6 +135,12 @@ def get_weather(zip_code):
         print('error: got response code %d' % response.status_code)
         print(response.text)
         return 0.0, 0.0
+def read_file():
+    try:
+        f=open('save.txt', 'r'):
+        read = f.read()
+        return read
+    except FileNotFoundError:
 
 # main function with the logic for the thermostat
 
@@ -152,13 +158,10 @@ def main():
     global i
     global flag
 
+    desired_temp = int(read_file())
+
     while True:
         try:
-            f=open('save.txt', 'r')
-            desired_temp = int(f.read())
-            f.close()
-        
-        
             # Get indoor temp
             indoor_temp = int(get_indoor_temp())
             
@@ -180,10 +183,6 @@ def main():
                         mode = mode + 1
                     else:
                         mode = 0
-                        f=open('save.txt', 'w')
-                        f.write(str(desired_temp))
-                        f.close()
-
             else:
                 lcd.setRGB(0,0,0)
                 print("asleep")
@@ -254,9 +253,6 @@ def main():
                 desired_temp = get_rotary_angle()
                 print("Set Temp: {:>3}F".format(desired_temp)) 
                 lcd.setText_norefresh("Set Temp:{:>3}F".format(desired_temp))
-        except FileNotFoundError:          
-            print('no such file')
-        except ValueError:
 
         except KeyboardInterrupt:
             lcd.setRGB(0,0,0)
