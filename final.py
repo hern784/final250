@@ -111,7 +111,7 @@ def get_rotary_angle():
 
 def rotary_temp():
     angle = grovepi.analogRead(potentiometer)
-    r_temp = angle/25
+    r_temp = angle/5
     rot_temp = 60 + r_temp
 
     if rot_temp > 100:
@@ -248,7 +248,7 @@ def main():
                 print("\nmode = 0 - Edit")
 
                 # get rotary angle set desired temp
-                desired_temp = rotary_temp()
+                desired_temp = get_rotary_angle()
                
 
                 print("Set Temp: {:>3}F".format(desired_temp)) 
