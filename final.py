@@ -159,7 +159,7 @@ def main():
             desired_temp = int(temp)
             f.close()
         except IOError:
-            print('')
+            
         try:
             # Get indoor temp
             indoor_temp = int(get_indoor_temp())
