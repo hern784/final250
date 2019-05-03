@@ -155,6 +155,8 @@ def main():
     while True:
 
         try:
+            f=open('save.txt', 'r')
+
             # Get indoor temp
             indoor_temp = int(get_indoor_temp())
             
@@ -256,6 +258,7 @@ def main():
             lcd.setRGB(0,0,0)
             setText_norefresh("")
             break
+        except FileNotFoundError:
 
 ##########################  begin  #######################################
 
