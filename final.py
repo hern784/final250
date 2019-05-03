@@ -186,7 +186,9 @@ def main():
             else:
                 lcd.setRGB(0,0,0)
                 print("asleep")
-                flag = 1
+                if button_status:
+                    i = 0
+                    lcd.setRGB(0,122,0)
      
             # state machine for window
             if (indoor_temp > desired_temp):
