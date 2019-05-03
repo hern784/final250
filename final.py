@@ -12,6 +12,7 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 import argparse
+import os
 
 #variables
 desired_temp_min = 60
@@ -136,6 +137,15 @@ def get_weather(zip_code):
         print(response.text)
         return 0.0, 0.0
 
+def read():
+    exists = os.path.isfile('/home/pi/final250')
+    if exists:
+        f = open('save.txt', 'r')
+        desired_temp = int(f.read())
+    else:
+        print("no saved temp")
+
+
 # main function with the logic for the thermostat
 
 def main():
@@ -151,6 +161,8 @@ def main():
     global wind_off
     global i
     global flag
+
+    read()
 
     while True:
         try:
