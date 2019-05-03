@@ -159,6 +159,7 @@ def main():
             if exists:
                 f = open('save.txt', 'r')
                 desired_temp = int(f.read())
+                f.close()
             else:
                 print("no saved temp")
             # Get indoor temp
