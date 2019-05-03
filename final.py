@@ -135,12 +135,6 @@ def get_weather(zip_code):
         print('error: got response code %d' % response.status_code)
         print(response.text)
         return 0.0, 0.0
-def read_file():
-    try:
-        f=open('save.txt', 'r')
-        read = f.read()
-        return read
-    except FileNotFoundError:
 
 # main function with the logic for the thermostat
 
@@ -157,8 +151,6 @@ def main():
     global wind_off
     global i
     global flag
-
-    desired_temp = int(read_file())
 
     while True:
         try:
@@ -179,7 +171,7 @@ def main():
                     grovepi.digitalWrite(buzzer_pin, 1)
                     time.sleep(.1)
                     grovepi.digitalWrite(buzzer_pin, 0)                    
-                    if (mode < 3):
+                    if (mode <= 2):
                         mode = mode + 1
                     else:
                         mode = 0
