@@ -153,10 +153,14 @@ def main():
     global flag
 
     while True:
-
         try:
             f=open('save.txt', 'r')
-
+            desired_temp = int(f.read())
+            f.close()
+        except FileNotFoundError:          
+            print('no such file')
+        except ValueError:
+        try:
             # Get indoor temp
             indoor_temp = int(get_indoor_temp())
             
@@ -178,7 +182,6 @@ def main():
                         mode = mode + 1
                     else:
                         mode = 0
-                        f=open('save.txt', 'w').close()
                         f=open('save.txt', 'w')
                         f.write(str(desired_temp))
                         f.close()
@@ -258,12 +261,10 @@ def main():
             lcd.setRGB(0,0,0)
             setText_norefresh("")
             break
-        except FileNotFoundError:
 
 ##########################  begin  #######################################
 
 if __name__ == '__main__':
-
    
     # MQTT to publish HVAC
     client = mqtt.Client()
