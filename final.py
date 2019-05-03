@@ -154,6 +154,12 @@ def main():
 
     while True:
         try:
+            f=open('save.txt', 'r')
+            desired_temp = int(f.read())
+            f.close()
+        except IOError:
+            print('')
+        try:
             # Get indoor temp
             indoor_temp = int(get_indoor_temp())
             
@@ -161,17 +167,9 @@ def main():
             time.sleep(.2)
             button_status = grovepi.digitalRead(button)
             i = i + 1
-            # if button_status:
-            #     i = 0
-            #     lcd.setRGB(0,122,0)
-            #     print("awake")
-            #     flag = 0
-            # elif i == 5:
-            #     lcd.setRGB(0,0,0)
-            #     print("asleep")
-            #     flag = 1
 
             # if lcd is off turn on, if lcd is on change mode and sound buzzer
+            # lcd sleep after 5 seconds
             if i < 6:
                 if button_status:     
                     i = 0
@@ -183,6 +181,10 @@ def main():
                         mode = mode + 1
                     else:
                         mode = 0
+                        f=open('save.txt', 'w')
+                        f.write(str(desired_temp))
+                        f.close()
+
             else:
                 lcd.setRGB(0,0,0)
                 print("asleep")
