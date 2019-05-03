@@ -157,7 +157,7 @@ def main():
             f=open('save.txt', 'r')
             desired_temp = int(f.read())
             f.close()
-        except FileNotFoundError            
+        except FileNotFoundError:          
             print('no such file')
         try:
             # Get indoor temp
