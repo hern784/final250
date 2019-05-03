@@ -139,6 +139,7 @@ def get_weather(zip_code):
 def read():
     f=open('save.txt', 'w+')
     desired_temp=f.read()
+    f.close()
 
 # main function with the logic for the thermostat
 
