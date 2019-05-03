@@ -107,18 +107,24 @@ def get_rotary_angle():
     voltage = round((float)(sensor_value) * adc_ref / 1023, 2)
     # Calculate rotation in degrees (0 to 300)
     degrees = round((voltage * full_angle) / grove_vcc, 2)
-    return degrees
 
-def rotary_temp():
-    angle = grovepi.analogRead(potentiometer)
-    r_temp = angle/5
-    rot_temp = 60 + r_temp
+    d_temp = 60 + degrees/5
+    if d_temp > 100:
+        d_temp = 100
+    if d_temp < 60:
+        d_temp = 60
+    return d_temp
 
-    if rot_temp > 100:
-        rot_temp = 100
-    if rot_temp < 60:
-        rot_temp = 60
-    return rot_temp
+# def rotary_temp():
+#     angle = grovepi.analogRead(potentiometer)
+#     r_temp = angle/5
+#     rot_temp = 60 + r_temp
+
+#     if rot_temp > 100:
+#         rot_temp = 100
+#     if rot_temp < 60:
+#         rot_temp = 60
+#     return rot_temp
 
 
 def get_indoor_temp():
