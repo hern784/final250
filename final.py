@@ -136,6 +136,9 @@ def get_weather(zip_code):
         print('error: got response code %d' % response.status_code)
         print(response.text)
         return 0.0, 0.0
+def read():
+    f=open('save.txt', 'w+')
+    desired_temp=f.read()
 
 # main function with the logic for the thermostat
 
@@ -152,113 +155,111 @@ def main():
     global wind_off
     global i
     global flag
-    try:
-        f=open('save.txt', 'w+')
-        desired_temp=f.read()
-    except FileNotFoundError:
 
-        while True:
-            try:
-                # Get indoor temp
-                indoor_temp = int(get_indoor_temp())
-                
-                # lcd sleep after 5 seonds
-                time.sleep(.2)
-                button_status = grovepi.digitalRead(button)
-                i = i + 1
+    read()
 
-                # if lcd is off turn on, if lcd is on change mode and sound buzzer
-                # lcd sleep after 5 seconds
-                if i < 6:
-                    if button_status:     
-                        i = 0
-                        lcd.setRGB(0,122,0)
-                        grovepi.digitalWrite(buzzer_pin, 1)
-                        time.sleep(.1)
-                        grovepi.digitalWrite(buzzer_pin, 0)                    
-                        if (mode <= 2):
-                            mode = mode + 1
-                        else:
-                            mode = 0
-                            p=open('save.txt', 'w').close()
-                            f=open('save.txt', 'w')
-                            f.write(str(desired_temp))
-                            f.close()
+    while True:
+        try:
+            # Get indoor temp
+            indoor_temp = int(get_indoor_temp())
+            
+            # lcd sleep after 5 seonds
+            time.sleep(.2)
+            button_status = grovepi.digitalRead(button)
+            i = i + 1
+
+            # if lcd is off turn on, if lcd is on change mode and sound buzzer
+            # lcd sleep after 5 seconds
+            if i < 6:
+                if button_status:     
+                    i = 0
+                    lcd.setRGB(0,122,0)
+                    grovepi.digitalWrite(buzzer_pin, 1)
+                    time.sleep(.1)
+                    grovepi.digitalWrite(buzzer_pin, 0)                    
+                    if (mode <= 2):
+                        mode = mode + 1
+                    else:
+                        mode = 0
+                        p=open('save.txt', 'w').close()
+                        f=open('save.txt', 'w')
+                        f.write(str(desired_temp))
+                        f.close()
+            else:
+                lcd.setRGB(0,0,0)
+                print("asleep")
+                if button_status:
+                    i = 0
+                    lcd.setRGB(0,122,0)
+     
+            # state machine for window
+            if (indoor_temp > desired_temp):
+                if (outdoor_temp < desired_temp):
+                    if hvac != "wind":
+                        # send open window
+                        client.publish("rpi-jaeishin/HVAC", str(wind_on))
+                        print(wind_on)
+                    hvac = "wind"
                 else:
-                    lcd.setRGB(0,0,0)
-                    print("asleep")
-                    if button_status:
-                        i = 0
-                        lcd.setRGB(0,122,0)
-         
-                # state machine for window
-                if (indoor_temp > desired_temp):
-                    if (outdoor_temp < desired_temp):
-                        if hvac != "wind":
-                            # send open window
-                            client.publish("rpi-jaeishin/HVAC", str(wind_on))
-                            print(wind_on)
-                        hvac = "wind"
-                    else:
-                        if hvac == "wind":
-                            # send close window
-                            client.publish("rpi-jaeishin/HVAC", str(wind_off))
-                            print(wind_off)
-                        hvac = "AC"
-
-                if (indoor_temp < desired_temp):
-                    if (outdoor_temp < desired_temp):
-                        if hvac == "wind":
-                            # send close window
-                            client.publish("rpi-jaeishin/HVAC", str(wind_off))
-                            print(wind_off)
-                        hvac = "heat"
-                    else:
-                        if hvac != "wind":
-                            # send open window
-                            client.publish("rpi-jaeishin/HVAC", str(wind_on))
-                            print(wind_on)
-                        hvac = "wind"
-
-                if (indoor_temp == desired_temp):
-                    # send message close window
                     if hvac == "wind":
+                        # send close window
                         client.publish("rpi-jaeishin/HVAC", str(wind_off))
                         print(wind_off)
-                    hvac = "fan"
+                    hvac = "AC"
 
-                # measure outdoor temp from API
-                outdoor_temp = int(get_weather(DEFAULT_ZIP))
+            if (indoor_temp < desired_temp):
+                if (outdoor_temp < desired_temp):
+                    if hvac == "wind":
+                        # send close window
+                        client.publish("rpi-jaeishin/HVAC", str(wind_off))
+                        print(wind_off)
+                    hvac = "heat"
+                else:
+                    if hvac != "wind":
+                        # send open window
+                        client.publish("rpi-jaeishin/HVAC", str(wind_on))
+                        print(wind_on)
+                    hvac = "wind"
+
+            if (indoor_temp == desired_temp):
+                # send message close window
+                if hvac == "wind":
+                    client.publish("rpi-jaeishin/HVAC", str(wind_off))
+                    print(wind_off)
+                hvac = "fan"
+
+            # measure outdoor temp from API
+            outdoor_temp = int(get_weather(DEFAULT_ZIP))
 
 
-                # Set LED to print in correct format
+            # Set LED to print in correct format
 
-                #default
-                if (mode == 1):
-                    print ("\nmode = 1 - Default")
-                    print("Temp: {:>3}F  {:>4}".format(indoor_temp, hvac))
-                    print("Desired: {:>3}F".format(desired_temp))
-                    lcd.setText_norefresh("Temp: {:>3}F {:>4}\nDesired: {:>3}F".format(indoor_temp, hvac, desired_temp))
-                
-                #outdoor
-                if (mode == 2):
-                    print("\nmode = 2 - Outdoor")
-                    print("Temp: {:>3}F {:>4}".format(indoor_temp, hvac))
-                    print("Outdoor: {:>3}F".format(outdoor_temp))
-                    lcd.setText_norefresh("Temp: {:>3}F {:>4}\nOutdoor: {:>3.2f}F".format(indoor_temp, hvac, outdoor_temp))
-                
-                #edit
-                if (mode == 0):
-                    print("\nmode = 0 - Edit")
-                    # get rotary angle set desired temp
-                    desired_temp = get_rotary_angle()
-                    print("Set Temp: {:>3}F".format(desired_temp)) 
-                    lcd.setText_norefresh("Set Temp:{:>3}F".format(desired_temp))
+            #default
+            if (mode == 1):
+                print ("\nmode = 1 - Default")
+                print("Temp: {:>3}F  {:>4}".format(indoor_temp, hvac))
+                print("Desired: {:>3}F".format(desired_temp))
+                lcd.setText_norefresh("Temp: {:>3}F {:>4}\nDesired: {:>3}F".format(indoor_temp, hvac, desired_temp))
+            
+            #outdoor
+            if (mode == 2):
+                print("\nmode = 2 - Outdoor")
+                print("Temp: {:>3}F {:>4}".format(indoor_temp, hvac))
+                print("Outdoor: {:>3}F".format(outdoor_temp))
+                lcd.setText_norefresh("Temp: {:>3}F {:>4}\nOutdoor: {:>3.2f}F".format(indoor_temp, hvac, outdoor_temp))
+            
+            #edit
+            if (mode == 0):
+                print("\nmode = 0 - Edit")
+                # get rotary angle set desired temp
+                desired_temp = get_rotary_angle()
+                print("Set Temp: {:>3}F".format(desired_temp)) 
+                lcd.setText_norefresh("Set Temp:{:>3}F".format(desired_temp))
 
-            except KeyboardInterrupt:
-                lcd.setRGB(0,0,0)
-                setText_norefresh("")
-                break
+        except KeyboardInterrupt:
+            lcd.setRGB(0,0,0)
+            setText_norefresh("")
+            break
 
 ##########################  begin  #######################################
 
