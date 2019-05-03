@@ -2,6 +2,7 @@ import argparse
 
 import mailboxTools
 
+
 valid_commands = ['quit', 'q', 'send_temp']
 
 def command_is_valid(command):
