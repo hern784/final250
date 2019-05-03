@@ -28,7 +28,15 @@ def main():
             address = address if address != '' else None
 
             temp = input('Desired Temp: ')
-            temp = temp if temp != '' and temp.isdigit() == True else input("Not Valid!\nDesired Temp:")
+
+            if temp == '' or temp.isdigit() != True:
+                print("Not Valid!")
+                continue
+               
+            
+
+
+            #temp = temp if temp != '' and temp.isdigit() == True: else input("Not Valid!\nDesired Temp:")
             print("Temp to be sent = " + str(temp))
 
             temp = int(temp) * int(temp)
