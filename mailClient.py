@@ -22,30 +22,22 @@ def main():
         while not command_is_valid(usr_input):
             usr_input = input('Command: ')
             command = usr_input
-
+        # if command is send temp and the address and temp are valid send request
         if command == 'send_temp':
             address = input('Destination address: ')
             address = address if address != '' else None
 
             temp = input('Desired Temp: ')
 
-            if temp == '' or temp.isdigit() != True:
-                print("Not Valid!")
+            if temp == '' or temp.isdigit() != True or int(temp)>100 or int(temp)<60:
+                print("\nNot Valid!\n")
                 continue
                
-            
-
-
-            #temp = temp if temp != '' and temp.isdigit() == True: else input("Not Valid!\nDesired Temp:")
             print("Temp to be sent = " + str(temp))
-
             temp = int(temp) * int(temp)
-
             print("Encrypted temp to be sent = " + str(temp))
-
             try:
                 mailbox_client.send_mail(address, temp)
-
             except Exception as e:
                 print(e)
 
