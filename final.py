@@ -181,9 +181,6 @@ def main():
                         mode = mode + 1
                     else:
                         mode = 0
-                        f=open('save.txt', 'w+')
-                        f.write(str(desired_temp))
-                        f.close()
             else:
                 lcd.setRGB(0,0,0)
                 print("asleep")
@@ -239,7 +236,10 @@ def main():
                 print("Temp: {:>3}F  {:>4}".format(indoor_temp, hvac))
                 print("Desired: {:>3}F".format(desired_temp))
                 lcd.setText_norefresh("Temp: {:>3}F {:>4}\nDesired: {:>3}F".format(indoor_temp, hvac, desired_temp))
-            
+                f=open('save.txt', 'w+')
+                f.write(str(desired_temp))
+                f.close()           
+ 
             #outdoor
             if (mode == 2):
                 print("\nmode = 2 - Outdoor")
