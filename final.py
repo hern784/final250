@@ -137,15 +137,6 @@ def get_weather(zip_code):
         print(response.text)
         return 0.0, 0.0
 
-def read():
-    exists = os.path.isfile('/home/pi/final250')
-    if exists:
-        f = open('save.txt', 'r')
-        desired_temp = int(f.read())
-    else:
-        print("no saved temp")
-
-
 # main function with the logic for the thermostat
 
 def main():
@@ -162,10 +153,14 @@ def main():
     global i
     global flag
 
-    read()
-
     while True:
         try:
+            exists = os.path.isfile('/home/pi/final250')
+            if exists:
+                f = open('save.txt', 'r')
+                desired_temp = int(f.read())
+            else:
+                print("no saved temp")
             # Get indoor temp
             indoor_temp = int(get_indoor_temp())
             
