@@ -170,7 +170,7 @@ def main():
                 flag = 1
 
             # if lcd is off turn on, if lcd is on change mode and sound buzzer
-            if button_status and flag = 1:
+            if button_status and flag == 1:
                 lcd.setRGB(0,122,0)
                 flag = 0
             else:             
@@ -250,7 +250,7 @@ def main():
             lcd.setRGB(0,0,0)
             setText_norefresh("")
             break
-            
+
 ##########################  begin  #######################################
 
 if __name__ == '__main__':
