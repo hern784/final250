@@ -152,12 +152,10 @@ def main():
     global wind_off
     global i
     global flag
-    f = os.path.isfile('/home/pi/final250/save.txt')
-    if f:
-        desired_temp = int(f.read())
-        f.close()            
-    else:
-        print("no saved temp")
+    try:
+        f=open('save.txt', 'w+')
+        desired_temp=f.read()
+    except FileNotFoundError:
 
     while True:
         try:
