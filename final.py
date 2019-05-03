@@ -155,18 +155,20 @@ def main():
     global i
 
     while True:
-
+        indoor_temp = get_indoor_temp()
         # buzzer on buttom press and mode change
-        button_status = grovepi.digitalRead(button)
+        
 
 
         # lcd sleep after 5 seonds
-        time.sleep(1)
+        time.sleep(.2)
+
+        button_status = grovepi.digitalRead(button)
         i = i + 1
         if button_status:
             i = 0
             lcd.setRGB(0,122,0)
-        elif i == 5:
+        elif i == 25:
             lcd.setRGB(0,0,0)
 
     
@@ -245,14 +247,13 @@ def main():
             print("\nmode = 0 - Edit")
 
             # get rotary angle set desired temp
-            angle = get_rotary_angle()
+            desired_temp = get_rotary_angle()
            
 
             print("Set Temp: {:>3}F".format(desired_temp)) 
             lcd.setText_norefresh("Set Temp:{:>3}F".format(desired_temp))
 
 
-        indoor_temp = get_indoor_temp()
 
 
 
