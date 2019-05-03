@@ -157,10 +157,8 @@ def main():
             f=open('save.txt', 'r')
             desired_temp = int(f.read())
             f.close()
-        except FileNotFoundError:          
-            print('no such file')
-        except ValueError:
-        try:
+        
+        
             # Get indoor temp
             indoor_temp = int(get_indoor_temp())
             
@@ -256,6 +254,9 @@ def main():
                 desired_temp = get_rotary_angle()
                 print("Set Temp: {:>3}F".format(desired_temp)) 
                 lcd.setText_norefresh("Set Temp:{:>3}F".format(desired_temp))
+        except FileNotFoundError:          
+            print('no such file')
+        except ValueError:
 
         except KeyboardInterrupt:
             lcd.setRGB(0,0,0)
