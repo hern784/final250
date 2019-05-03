@@ -161,19 +161,10 @@ def main():
             time.sleep(.2)
             button_status = grovepi.digitalRead(button)
             i = i + 1
-            if i != 5:
-                if button_status:
-                    i = 0
-                    lcd.setRGB(0,122,0)
-                    print("awake")
-                    flag = 0
-            elif i == 5:
-                lcd.setRGB(0,0,0)
-                print("asleep")
-                flag = 1
-
-            # if lcd is off turn on, if lcd is on change mode and sound buzzer
-            if flag==0:
+            if button_status:
+                i = 0
+                lcd.setRGB(0,122,0)
+                print("awake")
                 if button_status:        
                     grovepi.digitalWrite(buzzer_pin, 1)
                     time.sleep(.1)
@@ -182,12 +173,12 @@ def main():
                         mode = mode + 1
                     else:
                         mode = 0
-            else:
-                if flag==1:
-                    if button_status:
-                        lcd.setRGB(0,122,0)
-                        flag=0
-     
+            elif i == 5:
+                lcd.setRGB(0,0,0)
+                print("asleep")
+
+            # if lcd is off turn on, if lcd is on change mode and sound buzzer
+         
             # state machine for window
             if (indoor_temp > desired_temp):
                 if (outdoor_temp < desired_temp):
