@@ -165,7 +165,7 @@ def main():
             if button_status:
                 i = 0
                 lcd.setRGB(0,122,0)
-            elif i == 25:
+            elif i == 5:
                 lcd.setRGB(0,0,0)
                 flag = 1
 
