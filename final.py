@@ -158,6 +158,7 @@ def main():
             indoor_temp = int(get_indoor_temp())
             
             button_status = grovepi.digitalRead(button)
+            time.sleep(.2)
             
 
             # if lcd is off turn on, if lcd is on change mode and sound buzzer
@@ -175,7 +176,7 @@ def main():
                     lcd.setRGB(0,122,0)
 
             # lcd sleep after 5 seonds
-            time.sleep(.2)
+            
             i = i + 1
             if button_status:
                 i = 0
