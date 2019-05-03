@@ -158,9 +158,7 @@ def main():
             temp = f.read()
             desired_temp = int(temp)
             f.close()
-        except IOError:
-            
-        try:
+
             # Get indoor temp
             indoor_temp = int(get_indoor_temp())
             
@@ -256,6 +254,8 @@ def main():
                 desired_temp = get_rotary_angle()
                 print("Set Temp: {:>3}F".format(desired_temp)) 
                 lcd.setText_norefresh("Set Temp:{:>3}F".format(desired_temp))
+
+        except IOError:
 
         except KeyboardInterrupt:
             lcd.setRGB(0,0,0)
