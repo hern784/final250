@@ -181,8 +181,7 @@ def main():
                         mode = mode + 1
                     else:
                         mode = 0
-                        p=open('save.txt', 'w').close()
-                        f=open('save.txt', 'w')
+                        f=open('save.txt', 'w+')
                         f.write(str(desired_temp))
                         f.close()
             else:
