@@ -137,7 +137,7 @@ def get_weather(zip_code):
         return 0.0, 0.0
 def read_file():
     try:
-        f=open('save.txt', 'r'):
+        f=open('save.txt', 'r')
         read = f.read()
         return read
     except FileNotFoundError:
