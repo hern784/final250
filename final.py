@@ -264,13 +264,6 @@ def main():
 
 if __name__ == '__main__':
 
-    try:
-        f=open('save.txt', 'r')
-        if f:
-            desired_temp = int(f.read())
-            
-    except FileNotFoundError:          
-        print('no such file')
    
     # MQTT to publish HVAC
     client = mqtt.Client()
