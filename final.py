@@ -109,16 +109,16 @@ def get_rotary_angle():
     degrees = round((voltage * full_angle) / grove_vcc, 2)
     return degrees
 
-# def rotary_temp():
-#     angle = grovepi.analogRead(potentiometer)
-#     r_temp = angle/5
-#     rot_temp = 60 + r_temp
+def rotary_temp():
+    angle = grovepi.analogRead(potentiometer)
+    r_temp = angle/25
+    rot_temp = 60 + r_temp
 
-#     if rot_temp > 100:
-#         rot_temp = 100
-#     if rot_temp < 60:
-#         rot_temp = 60
-#     return rot_temp
+    if rot_temp > 100:
+        rot_temp = 100
+    if rot_temp < 60:
+        rot_temp = 60
+    return rot_temp
 
 
 def get_indoor_temp():
@@ -248,9 +248,7 @@ def main():
                 print("\nmode = 0 - Edit")
 
                 # get rotary angle set desired temp
-
-                angle = get_rotary_angle()
-                desired_temp = 60 + (angle/7.5)
+                desired_temp = rotary_temp()
                
 
                 print("Set Temp: {:>3}F".format(desired_temp)) 
@@ -259,7 +257,6 @@ def main():
         except KeyboardInterrupt:
             lcd.setRGB(0,0,0)
             setText_norefresh("")
-            
             break
 
 
