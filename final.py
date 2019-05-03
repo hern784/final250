@@ -155,7 +155,8 @@ def main():
     while True:
         try:
             f=open('save.txt', 'r')
-            desired_temp = int(f.read())
+            temp = f.read()
+            desired_temp = int(temp)
             f.close()
         except IOError:
             print('')
