@@ -165,12 +165,13 @@ def main():
             if button_status:
                 i = 0
                 lcd.setRGB(0,122,0)
+                flag = 0
             elif i == 5:
                 lcd.setRGB(0,0,0)
                 flag = 1
 
             # if lcd is off turn on, if lcd is on change mode and sound buzzer
-            if button_status:        
+            if flag!=1 and button_status:        
                 grovepi.digitalWrite(buzzer_pin, 1)
                 time.sleep(.1)
                 grovepi.digitalWrite(buzzer_pin, 0)
