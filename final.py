@@ -152,16 +152,16 @@ def main():
     global wind_off
     global i
     global flag
+    exists = os.path.isfile('/home/pi/final250')
+    if exists:
+        f = open('save.txt', 'r')
+            desired_temp = int(f.read())
+            f.close()            
+        else:
+            print("no saved temp")
 
     while True:
         try:
-            exists = os.path.isfile('/home/pi/final250')
-            if exists:
-                f = open('save.txt', 'r')
-                desired_temp = int(f.read())
-                f.close()
-            else:
-                print("no saved temp")
             # Get indoor temp
             indoor_temp = int(get_indoor_temp())
             
