@@ -1,7 +1,7 @@
 import sys
 import time
-sys.path.append('../../Software/Python/')
-sys.path.append('../../Software/Python/grove_rgb_lcd')
+#sys.path.append('../../Software/Python/')
+#sys.path.append('../../Software/Python/grove_rgb_lcd')
 sys.path.append('/home/pi/Dexter/GrovePi/Software/Python')
 import grovepi
 import grove_rgb_lcd as lcd
@@ -32,7 +32,6 @@ from flask import request
 
 import argparse
 import json
-import mailboxManager
 
 app = Flask('RaspberryPi Mailbox Server')
 
@@ -47,19 +46,14 @@ def post_mail_callback():
 
     # Print incomming temp
     print("Incomming encrypted temp = " + str(in_temp))
-    desired_temp = math.sqrt(in_temp)
+    desired_temp = int(math.sqrt(in_temp))
     print("Incomming decrypted temp = " + str(desired_temp))
     print(payload)
 
-
-    response = {'Response': 'Mail sent'}
-    """
     if (desired_temp>60) and (desired_temp <100):
-        mailbox_manager.add_mail(payload)
         response = {'Response': 'Mail sent'}
     else:
         response = {'Response': 'Invalid temp sent'}
-    """
     # The object returned will be sent back as an HTTP message to the requester
     return json.dumps(response)
 
@@ -228,7 +222,7 @@ def main():
 
         #measure indoor and out door temp
         outdoor_temp = get_weather(DEFAULT_ZIP)
-        indoor_temp = get_indoor_temp()
+
 
         #Set LED to print in correct format
 
@@ -252,11 +246,13 @@ def main():
 
             # get rotary angle set desired temp
             angle = get_rotary_angle()
-            desired_temp = 60 + (angle/7.5)
            
 
             print("Set Temp: {:>3}F".format(desired_temp)) 
             lcd.setText_norefresh("Set Temp:{:>3}F".format(desired_temp))
+
+
+        indoor_temp = get_indoor_temp()
 
 
 
@@ -324,9 +320,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     mailbox_password = args.p   # password
-    mailbox_manager = mailboxManager.mailboxManager()
     startup()
-    app.run(debug=True, host='0.0.0.0', port=4251)
+    app.run(debug=True, host='0.0.0.0', port=4250)
 
 
 
