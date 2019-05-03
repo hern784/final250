@@ -179,6 +179,9 @@ def main():
                     mode = mode + 1
                 else:
                     mode = 0
+            elif flag==1 and button_status:
+                lcd.setRGB(0,122,0)
+                flag=0
      
             # state machine for window
             if (indoor_temp > desired_temp):
