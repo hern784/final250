@@ -137,7 +137,7 @@ def get_weather(zip_code):
         print(response.text)
         return 0.0, 0.0
 def read():
-    f=open('save.txt', 'w+')
+    f=open('save.txt', 'r')
     desired_temp=f.read()
     f.close()
 
