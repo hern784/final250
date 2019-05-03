@@ -165,7 +165,7 @@ def main():
                 i = 0
                 lcd.setRGB(0,122,0)
                 print("awake")
-                time.sleep(.3)
+                time.sleep(.5)
                 flag = 0
             elif i == 5:
                 lcd.setRGB(0,0,0)
