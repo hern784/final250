@@ -122,8 +122,6 @@ def rotary_temp():
 
 
 def get_indoor_temp():
-    # Connect the Grove Temperature Sensor to analog port A0
-    # SIG,NC,VCC,GND
     sensor = 7
 
     while True:
@@ -156,7 +154,7 @@ def main():
 
     while True:
         try:
-            indoor_temp = get_indoor_temp()
+            indoor_temp = int(get_indoor_temp())
             # buzzer on buttom press and mode change
             
 
@@ -224,7 +222,7 @@ def main():
                 hvac = "fan"
 
             #measure indoor and out door temp
-            outdoor_temp = get_weather(DEFAULT_ZIP)
+            outdoor_temp = int(get_weather(DEFAULT_ZIP))
 
 
             #Set LED to print in correct format
