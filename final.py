@@ -256,6 +256,7 @@ def main():
                 lcd.setText_norefresh("Set Temp:{:>3}F".format(desired_temp))
 
         except IOError:
+            print("no file")
 
         except KeyboardInterrupt:
             lcd.setRGB(0,0,0)
