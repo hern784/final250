@@ -164,9 +164,11 @@ def main():
             if button_status:
                 i = 0
                 lcd.setRGB(0,122,0)
+                print("awake")
                 flag = 0
             elif i == 5:
                 lcd.setRGB(0,0,0)
+                print("asleep")
                 flag = 1
 
             # if lcd is off turn on, if lcd is on change mode and sound buzzer
