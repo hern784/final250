@@ -152,7 +152,7 @@ def main():
     global wind_off
     global i
     global flag
-    exists = os.path.isfile('/home/pi/final250/save.txt')
+    f = os.path.isfile('/home/pi/final250/save.txt')
     if exists:
         desired_temp = int(f.read())
         f.close()            
