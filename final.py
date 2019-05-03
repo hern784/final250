@@ -152,9 +152,8 @@ def main():
     global wind_off
     global i
     global flag
-    exists = os.path.isfile('/home/pi/final250')
+    exists = os.path.isfile('/home/pi/final250/save.txt')
     if exists:
-        f = open('save.txt', 'r')
         desired_temp = int(f.read())
         f.close()            
     else:
@@ -186,6 +185,7 @@ def main():
                         p=open('save.txt', 'w').close()
                         f=open('save.txt', 'w')
                         f.write(str(desired_temp))
+                        f.close()
             else:
                 lcd.setRGB(0,0,0)
                 print("asleep")
