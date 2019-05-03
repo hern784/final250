@@ -155,6 +155,8 @@ def main():
     while True:
         try:
             f=open('save.txt', 'r')
+            if f:
+                desired_temp = int(f.read())
             
         except FileNotFoundError:          
             print('no such file')
